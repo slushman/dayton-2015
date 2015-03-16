@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>WordCamp Dayton 2015</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Using WordPress Plugin Boilerplate 3.0">
+	<meta name="author" content="Chris Wilcoxson">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" id="dayton-2015-css" href="css/theme/black.css" type="text/css" media="all" />
+	<link rel="stylesheet" id="dayton-2015-css" href="style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+	<script>
+		if (window.location.search.match(/print-pdf/gi)) {
+			var link = document.createElement('link');
+
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = 'css/print/pdf.css';
+			document.getElementsByTagName('head')[0].appendChild(link);
+		}
+	</script>
+</head>
+
+<body>
+
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>Using WordPress Plugin Boilerplate</h1>
+				<h3>Chris Wilcoxson</h3>
+				<p>WordCamp Dayton 2015</p>
+			</section>
+
+			<section>
+				<h2>Who Am I?</h2>
+				<aside class="notes">
+Introduce yourself
+
+Pastor’s kid – moved around, but lived the longest in Nashville, so I consider it home. 6 months ago, my family and I moved to a farm near Decatur, IL.
+
+I’m also a musician and play guitar and bass.
+				</aside>
+			</section>
+
+			<section data-background="images/2015-family.jpg"></section>
+
+			<section>
+				<h2>slushman</h2>
+				<aside class="notes">
+Started using WordPress in 2007 with WordPress.com.
+Self-hosted WordPress in 2008 and wrote an eBook to help musicians build their own sites.
+Started developing for WordPress in 2011.
+Published 3 plugins: ArtistDataPress, BuddyPress Profile Widgets, and BuddyBar
+				</aside>
+			</section>
+
+			<section>
+				<h2>DCC Marketing</h2>
+				<p class="fragment">Decatur, IL</p>
+				<p class="fragment">dccmarketing.com</p>
+				<aside class="notes">
+Full-service, boutique marketing agency
+Based in Decatur, IL with an office in Chicago
+				</aside>
+			</section>
+
+			<section data-background="images/halloween.jpg"></section>
+
+			<section data-background="images/jump.gif"></section>
+
+			<section>
+				<h2>WordPress Plugin Boilerplate</h2>
+				<h3 class="fragment">Tom McFarlin</h3>
+				<h3 class="fragment">Devin Vinson</h3>
+				<aside class="notes">
+Brief history
+Written by Tom McFarlin of Atlanta, GA in 2011
+As of March 4, 2015, taken over by Devin Vinson of Tampa Bay, FL
+				</aside>
+			</section>
+
+			<section>
+				<h2>Why Use It?</h2>
+				<p class="fragment">Keeps files organized</p>
+				<p class="fragment">WordPress Coding Standards</p>
+				<p class="fragment">WordPress Documentation Standards</p>
+				<p class="fragment">WordPress APIs</p>
+				<p class="fragment">Translatable</p>
+				<aside class="notes">
+Like building a house, start with a good foundation:
+Organization helps with maintainability
+WP Coding standards
+WP documentation standards
+Uses WP APIs
+Starts with a blank .pot to encourage developers to add internationalization to their plugins
+				</aside>
+			</section>
+
+			<section>
+				<h2>What's New?</h2>
+				<p class="fragment">Completely rewritten</p>
+				<p class="fragment">No more singleton</p>
+				<p class="fragment">New Structure</p>
+				<p class="fragment">http://wppb.io</p>
+				<aside class="notes">
+The entire project was rewritten from scratch using feedback and contributions fro several other developers
+In this rewrite, Tom moved away from using the singleton pattern, which is hotly debated practice among developers
+The plugin features a new structure (which we'll go over in more detail)
+And the biggest new feature is wppb.io, which serves as the homepage for the project and will house all the documentation coming soon
+				</aside>
+			</section>
+
+			<section>
+				<h2>Structure</h2>
+				<img src="images/structure.png" class="structure" />
+				<aside class="notes">
+Comes ready for WP plugin directory with Markdown docs for README and ChangeLog at the root
+The assets folder with an example icon, screenshot, and banner image files for the plugin directory.
+Inside the trunk folder...
+				</aside>
+			</section>
+
+			<section>
+				<h2>Admin & Public</h2>
+				<img src="images/admin.png" class="admin" />
+				<img src="images/public.png" class="public" />
+				<aside class="notes">
+Both the admin and public classes have identical structures.
+Each has a CSS folder for the related styled
+A Javascript folder for any scripts
+and a Partials folder for HTML views
+The main file in each folder contains all the code needed for that section. We'll go into details of each later.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Includes</h2>
+				<img src="images/includes.png" class="includes" />
+				<aside class="notes">
+Holds all the operational files. This is where the magic happens.
+But seriously, thee are the core of your future plugin.
+Before we got into all the bits and pieces, let me give you some advice:
+				</aside>
+			</section>
+
+			<section>
+				<h2>Use a Generator</h2>
+				<h3>http://wppb.me</h3>
+				<aside class="notes">
+Seriously, save yourself a ton of time by using this generator. It takes care of renaming everything for you and prevents alot of troubleshooting from typos.
+				</aside>
+			</section>
+
+			<section>
+				<section>
+					<h2>plugin-name.php</h2>
+<pre><code>/**
+ * @link              http://example.com
+ * @since             1.0.0
+ * @package           Plugin_Name
+ *
+ * @wordpress-plugin
+ * Plugin Name:       WordPress Plugin Boilerplate
+ * Plugin URI:        http://example.com/plugin-name-uri/
+ * Description:       This is a short description of what the plugin does.
+ * Version:           1.0.0
+ * Author:            Your Name or Your Company
+ * Author URI:        http://example.com/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       plugin-name
+ * Domain Path:       /languages
+ */</code></pre>
+					<aside class="notes">
+Like any WordPress plugin, it starts with comments describing what it does, who authored it, the current version, etc.
+Boilerplate also uses the PHPDoc versions of those same properties.
+					</aside>
+				</section>
+				<section>
+					<h2>plugin-name.php</h2>
+<pre><code>if ( ! defined( 'WPINC' ) ) { die; }
+
+function activate_plugin_name() {
+    require_once plugin_dir_path( __FILE__ ) .
+        'includes/class-plugin-name-activator.php';
+    Plugin_Name_Activator::activate();
+}
+
+function deactivate_plugin_name() {
+    require_once plugin_dir_path( __FILE__ ) .
+        'includes/class-plugin-name-deactivator.php';
+    Plugin_Name_Deactivator::deactivate();
+}
+
+register_activation_hook( __FILE__, 'activate_plugin_name' );
+register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );</code></pre>
+					<aside class="notes">
+At the top, is a security feature, if someone tries to open this file directly, it dies.
+Next, are two functions loading the activator and decativator classes. We'll take a look at those in a minute.
+Below that, are th register activation and deactivation hooks, referencing the appropriate methods in the respective classes.
+					</aside>
+				</section>
+				<section>
+					<h2>plugin-name.php</h2>
+<pre><code>require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
+
+function run_plugin_name() {
+
+    $plugin = new Plugin_Name();
+    $plugin->run();
+
+}
+run_plugin_name();</code></pre>
+					<aside class="notes">
+At the bottom of this file, We load up the primary plugin class and call the run method.
+					</aside>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Activation & Deactivation</h2>
+					<h3>Activation Class</h3>
+<pre><code>class Plugin_Name_Activator {
+
+    public static function activate() {
+
+    }
+}</code></pre>
+					<aside class="notes">
+I took out the comments, but this is everything in the activation class.
+By default, its empty. For simpler plugins, you probably won't use this.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Activation & Deactivation</h2>
+					<h3>Deactivation Class</h3>
+<pre><code>class Plugin_Name_Deactivator {
+
+    public static function deactivate() {
+
+    }
+}</code></pre>
+					<aside class="notes">
+The deactivator class is also blank by default.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Plugin Class</h2>
+					<aside class="notes">
+The plugin class is the core of the plugin. Here's where everything ties together. Let's take a look.
+					</aside>
+				</section>
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Constructor</h3>
+<pre><code>public function __construct() {
+
+    $this->plugin_name = 'plugin-name';
+    $this->version = '1.0.0';
+
+    $this->load_dependencies();
+    $this->set_locale();
+    $this->define_admin_hooks();
+    $this->define_public_hooks();
+
+}</code></pre>
+					<aside class="notes">
+The constructors sets the class variables, the plugin_name is used for i18n, the version is used for cache busting scripts and stylesheets.
+Then calls these four methods:
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Load Dependencies</h3>
+<pre><code>private function load_dependencies() {
+
+    require_once plugin_dir_path( dirname( __FILE__ ) ) .
+        'includes/class-plugin-name-loader.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) .
+        'includes/class-plugin-name-i18n.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) .
+        'admin/class-plugin-name-admin.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) .
+        'public/class-plugin-name-public.php';
+
+    $this->loader = new Plugin_Name_Loader();
+
+}</code></pre>
+					<aside class="notes">
+Load dependencies brings in all the other classes used by the plugin class. It also instantiates the Loader class.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>i18n</h3>
+<pre><code>private function set_locale() {
+
+    $plugin_i18n = new Plugin_Name_i18n();
+    $plugin_i18n->set_domain( $this->get_plugin_name() );
+
+    $this->loader->add_action(
+        'plugins_loaded',
+        $plugin_i18n,
+        'load_plugin_textdomain'
+    );
+
+}</code></pre>
+					<aside class="notes">
+The set_locale method uses the WordPress APIs to set the textdomain for the plugin for i18n.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Hooks</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Plugin_Name_Admin(
+        $this->get_plugin_name(), $this->get_version() );
+
+    $this->loader->add_action(
+        'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles'
+    );
+
+    $this->loader->add_action(
+        'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts'
+    );
+
+}</code></pre>
+					<aside class="notes">
+There are two methods where the WordPress hooks and filters are setup. This is the admin hooks method, the public-facing method is exactly the same, just referencing different hooks.
+
+This is one of the more interesting parts of the 3.0 rewrite. It instantiates the Admin class, then you can see it calls the add_action method with the loader class.
+
+The add_action method is really just a wrapper for a standard add_action like anywhere else in WordPress. Basically, its gathering all those calls and running them all at once. This is part of keeping your plugin organized and providing a stable, consistant structure.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Loader Class</h2>
+					<h3>Constructor</h3>
+<pre><code>public function __construct() {
+
+    $this->actions = array();
+    $this->filters = array();
+
+}</code></pre>
+					<aside class="notes">
+The constructor sets the actions and filters class variables as blank arrays.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Loader Class</h2>
+					<h3>Add Action</h3>
+<pre><code>public function add_action(
+    $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+
+    $this->actions = $this->add(
+        $this->actions,
+        $hook,
+        $component,
+        $callback,
+        $priority,
+        $accepted_args
+    );
+
+}</code></pre>
+					<aside class="notes">
+They work the same way: they take the arguments from your call in the plugin class and load each one into their respective arrays.
+They use a helper method call "Add", which simply adds a new subarray to either the actions array.
+There's also an add_filter method, which appears exactly the same way.
+Those are processed in the run method.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Loader Class</h2>
+					<h3>Run Method</h3>
+<pre><code>public function run() {
+
+    foreach ( $this->actions as $hook ) {
+        add_action(
+            $hook['hook'],
+            array( $hook['component'], $hook['callback'] ),
+            $hook['priority'],
+            $hook['accepted_args']
+        );
+    }
+}</code></pre>
+					<aside class="notes">
+These are simple foreach loops where each subarray uses the standard add_action WordPress function to setup all the various bits and piece of your plugin.
+
+There's also a loop for adding filters, I ran out of room on the slide, but it works exactly the same way.
+
+That's the loader class.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Admin & Public Classes</h2>
+					<h3>Constructor</h3>
+<pre><code>public function __construct( $plugin_name, $version ) {
+
+    $this->plugin_name = $plugin_name;
+    $this->version = $version;
+
+}</code></pre>
+					<aside class="notes">
+The admin and public classes are structured the same and have the same methods, but keep the pulic-facing code and admin-facing code separated.
+The constructor just sets the i18n and version class variables.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Admin & Public Classes</h2>
+					<h3>Enqueue Styles</h3>
+<pre><code>public function enqueue_styles() {
+
+    wp_enqueue_style(
+        $this->plugin_name,
+        plugin_dir_url( __FILE__ ) . 'css/plugin-name-admin.css',
+        array(),
+        $this->version,
+        'all'
+    );
+
+}</code></pre>
+					<aside class="notes">
+Then they have added two example methods within each class.
+The first is enqueue_styles, which enqueues the sample CSS file.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Admin & Public Classes</h2>
+					<h3>Enqueue Scripts</h3>
+<pre><code>public function enqueue_scripts() {
+
+    wp_enqueue_script(
+        $this->plugin_name,
+        plugin_dir_url( __FILE__ ) . 'js/plugin-name-admin.js',
+        array( 'jquery' ),
+        $this->version,
+        false
+    );
+
+}</code></pre>
+					<aside class="notes">
+Enqueue scripts works the same basic way, calling the WordPress function to enqueue a script using the sample script file included with the boilerplate.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<h2>Other Files</h2>
+				<img src="images/languages.png" class="languages" />
+				<ul>
+					<li class="fragment">index.php files</li>
+					<li class="fragment">Languages Folder & blank .pot file</li>
+					<li class="fragment">license.txt</li>
+					<li class="fragment">README.txt</li>
+					<li class="fragment">uninstall.php</li>
+				</ul>
+				<aside class="notes">
+* You might have noticed the index.php files. Those are blank files that help prevent people from browsing your plugin directories as a security measure.
+* There's a languages folder with a blank pot file, which you would populate after your done with your plugin for i18n.
+* The license.txt file contains a copy of the GPL2 license which WordPress and the vast majority of plugins and themes use.
+* The readme file contains all the text used for the plugin directory
+* Finally, the uninstall.php file, which is blank by default, is used for anything that needs to happen when your plugin is uninstalled, like removing settings entries in the database.
+				</aside>
+			</section>
+
+			<section data-background="images/nowwhat.gif"></section>
+
+			<section>
+				<h2>Examples</h2>
+				<p class="fragment">Enqueue styles and scripts</p>
+				<p class="fragment">Custom Post Type</p>
+				<p class="fragment">Taxonomy</p>
+				<p class="fragment">Plugin Settings</p>
+				<p class="fragment">Metaboxes</p>
+				<p class="fragment">Shortcode</p>
+				<p class="fragment">Displays/Views</p>
+				<p class="fragment">Widgets</p>
+				<aside class="notes">
+I wrote up an example plugin to show how this stuff works in practice. While explaining it might help you, seeing working code helps more.
+				</aside>
+			</section>
+
+			<section>
+				<section>
+					<h2>Custom Post Type</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Now_Hiring_Admin(
+        $this->get_i18n(),
+        $this->get_version()
+    );
+
+    $this->loader->add_action(
+        'init',
+        $plugin_admin,
+        'new_cpt_jobs'
+    );
+
+}</code></pre>
+					<aside class="notes">
+In the admin hooks method in the plugin class, we hook the new_cpt_jobs method onto init.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Custom Post Type</h2>
+					<h3>Admin Class</h3>
+<pre><code>public function new_cpt_jobs() {
+
+    $cap_type 	= 'post';
+    $plural 	= 'Jobs';
+    $single 	= 'Job';
+
+    $opts['show_ui'] = TRUE;
+    $opts['supports'] = array( 'title', 'editor', 'thumbnail' );
+    $opts['capabilities']['edit_post'] = "edit_{$cap_type}";
+    $opts['labels']['add_new'] =
+        __( "Add New {$single}", $this->i18n );
+
+    ...
+
+    register_post_type( strtolower( $plural ), $opts );
+
+}</code></pre>
+					<aside class="notes">
+Then in the admin class, the new_cpt_jobs method registers the custom post type. I can't fit the entire array on the slide, but you can see part of it there before the register_post_type call.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Taxonomy</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Now_Hiring_Admin(
+        $this->get_i18n(),
+        $this->get_version() );
+
+    $this->loader->add_action(
+        'init',
+        $plugin_admin,
+        'new_tax_type'
+    );
+
+}</code></pre>
+					<aside class="notes">
+Taxonomies work the same basic way as a custom post type. We hook the new_taxonomy_type method from the admin class on init.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Taxonomy</h2>
+					<h3>Admin Class</h3>
+<pre><code>public function new_taxonomy_type() {
+
+    $plural 	= 'Types';
+    $single 	= 'Type';
+    $tax_name 	= 'job_type';
+
+    $opts['query_var'] = $tax_name;
+    $opts['capabilities']['assign_terms'] = 'edit_posts';
+    $opts['labels']['add_new_item'] =
+        __( "Add New {$single}", $this->i18n );
+
+    ...
+
+    register_taxonomy( $tax_name, 'jobs', $opts );
+
+}</code></pre>
+					<aside class="notes">
+Then in the new_taxonomy_type method, we register the taxonomy. Again, I'm not showing the entire options array, just a snippet.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Now_Hiring_Admin(
+        $this->get_i18n(),
+        $this->get_version()
+    );
+
+    $this->loader->add_action(
+        'admin_menu',
+        $plugin_admin,
+        'add_menu'
+    );
+    $this->loader->add_action(
+        'admin_init',
+        $plugin_admin,
+        'register_settings'
+    );
+
+}</code></pre>
+					<aside class="notes">
+In the admin class, we hook the register_settings method to admin_init and the add_menu method to admin_menu.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Register Settings</h3>
+<pre><code>public function register_settings() {
+
+    register_setting( 'now_hiring_options', 'now_hiring_options',
+        array( $this, 'validate_options' ) );
+
+    add_settings_section( 'now_hiring_display_options',
+        'Display Options',
+        array( $this, 'display_options_section' ), 'now-hiring' );
+
+    add_settings_field( 'display_salary', 'Display Salary',
+        array( $this, 'display_options_field' ),
+        'now-hiring', 'now_hiring_display_options' );
+
+}</code></pre>
+					<aside class="notes">
+You can see, I've registered the setting "now_hiring_options", added a display options section, and added one field called display_salary.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Options Page</h3>
+<pre><code>public function options_page() {
+
+    echo '<h2>Now Hiring Settings</h2>';
+    echo '<form method="post" action="options.php">';
+
+    settings_fields( 'now_hiring_options' );
+
+    do_settings_sections( 'now-hiring' );
+
+    submit_button( 'Save Settings' );
+
+    echo '</form>';
+
+}</code></pre>
+					<aside class="notes">
+Typical options page stuff here.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Add Menu</h3>
+<pre><code>public function add_menu() {
+
+    add_options_page(
+        __( 'Now Hiring Settings', $this->i18n ),
+        __( 'Now Hiring', $this->i18n ),
+        'manage_options',
+        'now-hiring',
+        array( $this, 'options_page' )
+    );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Display Section</h3>
+<pre><code>public function display_options_section( $params ) {
+
+    echo '<p>' . $params['title'] . '</p>';
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Display Field</h3>
+<pre><code>public function display_options_field() {
+
+    $options = get_option( 'now_hiring_options' );
+
+    ?&gt;&lt;input type="checkbox" id="now_hiring_options[display_salary]" name="now_hiring_options[display_salary]" value="1" &lt;?php checked( 1, $options['display_salary'], false ); ?&gt; /&gt;&lt;?php
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Settings</h2>
+					<h3>Admin Class - Validate Options</h3>
+<pre><code>public function validate_options( $input ) {
+
+    $display_salary = trim( $input['display_salary'] );
+    $valid['display_salary'] = isset( $display_salary ) ? 1 : 0;
+
+    if ( $valid['display_salary'] != $input['display_salary'] ) {
+        add_settings_error(
+            'display_salary',
+            'display_salary_error',
+            'Display salary error.',
+            'error'
+        );
+    }
+
+    return $valid;
+
+} // validate_options()</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Settings & Row Links</h2>
+					<h3>Plugin File</h3>
+<pre><code>if ( ! defined( 'NOW_HIRING_BASENAME' ) ) {
+    define( 'NOW_HIRING_BASENAME', plugin_basename( __FILE__ ) );
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Settings & Row Links</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Now_Hiring_Admin(
+        $this->get_i18n(),
+        $this->get_version() );
+
+    $this->loader->add_action(
+        'plugin_action_links_' . NOW_HIRING_BASENAME,
+        $plugin_admin,
+        'settings_link' );
+    $this->loader->add_action(
+        'plugin_row_meta',
+        $plugin_admin,
+        'row_links', 10, 2 );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Settings & Row Links</h2>
+					<h3>Admin Class - Settings Link</h3>
+<pre><code>public function settings_link( $links ) {
+
+    $settings_link = sprintf(
+        '<a href="%s">%s</a>',
+        admin_url( 'options-general.php?page=now-hiring' ),
+        __( 'Settings' )
+    );
+
+    array_unshift( $links, $settings_link );
+
+    return $links;
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Settings & Row Links</h2>
+					<h3>Admin Class - Row Link</h3>
+<pre><code>public function row_links( $links, $file ) {
+
+    if ( $file == NOW_HIRING_BASENAME ) {
+
+        $link = '<a href="http://grumpycats.com/">Grumpy Cat</a>';
+
+        array_push( $links, $link );
+
+    }
+
+    return $links;
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Metaboxes</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_admin_hooks() {
+
+    $plugin_admin = new Now_Hiring_Admin(
+        $this->get_i18n(),
+        $this->get_version() );
+
+    $this->loader->add_action(
+        'add_meta_boxes',
+        $plugin_admin,
+        'add_metaboxes' );
+
+    $this->loader->add_action(
+        'save_post_jobs',
+        $plugin_admin,
+        'save_meta', 10, 2 );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Metaboxes</h2>
+					<h3>Admin Class - Add Metaboxes</h3>
+<pre><code>public function add_metaboxes() {
+
+    add_meta_box(
+        'now_hiring_job_location',
+        __( 'Job Location', $this->i18n ),
+        array( $this, 'callback_metabox_job_location' ),
+        'jobs',
+        'normal',
+        'default'
+    );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Metaboxes</h2>
+					<h3>Admin Class - Metabox Method</h3>
+<pre><code>public function callback_metabox_job_location( $object, $box ) {
+
+    include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-admin-display-metabox-job-location.php' );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Metaboxes</h2>
+					<h3>Admin Class - Save Meta</h3>
+<pre><code>public function save_meta( $post_id, $object ) {
+
+    // check for autosave, post type, capability, & set nonce
+
+    if ( ! wp_verify_nonce( $_POST['job_location_nonce'], NOW_HIRING_BASENAME ) ) { return $post_id; }
+
+    $custom = get_post_custom( $post_id );
+    $metas = array( 'job-location' );
+
+    foreach ( $metas as $meta ) {
+
+        // sanitize data
+        // update meta
+
+    }
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Shortcode</h2>
+					<h3>Plugin Class</h3>
+<pre><code>private function define_public_hooks() {
+
+    $plugin_public = new Now_Hiring_Public(
+        $this->get_i18n(),
+        $this->get_version()
+    );
+
+    $this->loader->add_action(
+        'init',
+        $plugin_public,
+        'register_shortcodes'
+    );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Shortcode</h2>
+					<h3>Public Class - Register Shortcodes</h3>
+<pre><code>public function register_shortcodes() {
+
+    add_shortcode( 'nowhiring', array( $this, 'shortcode' ) );
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Shortcode</h2>
+					<h3>Public Class - Shortcode Method</h3>
+<pre><code>public function shortcode( $atts ) {
+
+    ob_start();
+
+    $defaults['order'] = 'date';
+    $defaults['quantity'] = -1;
+    $args = shortcode_atts( $defaults, $atts, 'nowhiring' );
+    $items = $this->get_job_posts( $args );
+
+    ...
+
+    $output = ob_get_contents();
+
+    ob_end_clean();
+
+    return $output;
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Displays, Partials, & Views, Oh My!</h2>
+					<h3>Shortcode Method</h3>
+<pre><code>if ( is_array( $items ) || is_object( $items ) ) {
+
+    include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-public-display.php' );
+
+} else {
+
+    echo $items;
+
+}</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section>
+					<h2>Displays, Partials, & Views, Oh My!</h2>
+					<h3>Public Class - Display Loop</h3>
+<pre><code>foreach ( $items->posts as $item ) {
+
+    include( plugin_dir_path( __FILE__ ) . 'now-hiring-public-display-single-' .    esc_attr( $options['layout'] ) . '.php' );
+
+}</code></pre>
+					<aside class="notes">
+I set these up in separate files so I can use a plugin option to switch out the display, so I keep each display's code separated.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Displays, Partials, & Views, Oh My!</h2>
+					<h3>Public Class - Display Single</h3>
+<pre><code>?&gt;&lt;div class="job-wrap"&gt;
+    &lt;h1 class="job-title"&gt;&lt;a href="&lt;?php echo get_permalink( $item->ID ); ?>"&gt;&lt;?php echo esc_attr( $item->post_title ); ?&gt;&lt;/a&gt;&lt;/h1&gt;
+    &lt;div class="job-content"&gt;&lt;?php echo $item->post_content; ?&gt;&lt;/h1&gt;
+&lt;/div&gt;</code></pre>
+					<aside class="notes">
+This is the display I've created for the example. I could see having a plugin option for choosing a different single job posting display. In that case, I'd put the option logic in the loop display file, which would then load one of the single displays based on the plugin option.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<h2>Widgets</h2>
+				<h3>Where?</h3>
+				<aside class="notes">
+I found two ways of incorporating a widget into the plugin.
+
+Both options use these two methods, just in different places.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Plugin Class</h2>
+				<h3>Load Dependencies</h3>
+<pre><code>
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-widget.php';
+</code></pre>
+				<aside class="notes">
+In the plugin class, add your widget class file in the load_dependencies method.
+
+If you have more than one widget, load each file as a dependency here.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Init Widgets</h2>
+<pre><code>public function widgets_init() {
+
+    register_widget( 'now_hiring_widget' );
+
+}</code></pre>
+				<aside class="notes">
+Next is the widget registration method, which I do similarly to register metaboxes where I do them all at once.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Flush Widget Cache</h2>
+<pre><code>public function flush_widget_cache( $post_id ) {
+
+    if ( wp_is_post_revision( $post_id ) ) { return; }
+
+    $post = get_post( $post_id );
+
+    if ( $post->post_type == 'jobs' ) {
+
+        wp_cache_delete( $this->i18n, 'widget' );
+
+    }
+
+}</code></pre>
+				<aside class="notes">
+Lastly, based on the Tom McFarlin's widget boilerplate, I also include a flush_widget_cache, which is triggered when changes within WordPress affect the output of a widget.
+				</aside>
+			</section>
+
+			<section>
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Constructor</h3>
+<pre><code>$this->define_widget_hooks();</code></pre>
+					<aside class="notes">
+Option 1 is putting all the widget methods in the plugin class. To kick it off, add a method call in the contructor, I called mine define_widget_hooks.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Define Widget Hooks</h3>
+<pre><code>private function define_widget_hooks() {
+
+    $this->loader->add_action( 'widgets_init', $this, 'widgets_init' );
+    $this->loader->add_action( 'save_post_jobs', $this, 'flush_widget_cache' );
+    $this->loader->add_action( 'deleted_post', $this, 'flush_widget_cache' );
+    $this->loader->add_action( 'switch_theme', $this, 'flush_widget_cache' );
+
+}</code></pre>
+					<aside class="notes">
+Option 1 is putting all the widget methods in the plugin class. To kick it off, add a method call in the contructor, I called mine define_widget_hooks. You can see, we hook the widgets_init method so the widgets will be recognized by WordPress and we flush the widget cache when posts are saved, which would end up changing the output of our widget.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Shared Class</h2>
+					<h3>Constructor</h3>
+<pre><code>$this->define_shared_hooks();</code></pre>
+					<aside class="notes">
+The second option is to create a shared class, where the widgets_init, flush_widget_cache methods are located. In the constructor, we declare a different hooks method.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Shared Class</h2>
+					<h3>Load Dependencies</h3>
+<pre><code>
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-shared.php';
+</code></pre>
+					<aside class="notes">
+Since we're creating a new class, we'll need to load its file as a dependency.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Shared Class</h2>
+					<h3>Define Widget Hooks</h3>
+<pre><code>private function define_shared_hooks() {
+
+    $plugin_shared = new Now_Hiring_Shared( $this->get_i18n(), $this->get_version() );
+
+    $this->loader->add_action( 'widgets_init', $plugin_shared, 'widgets_init' );
+    $this->loader->add_action( 'save_post_jobs', $plugin_shared, 'flush_widget_cache' );
+    $this->loader->add_action( 'deleted_post', $plugin_shared, 'flush_widget_cache' );
+    $this->loader->add_action( 'switch_theme', $plugin_shared, 'flush_widget_cache' );
+
+}</code></pre>
+					<aside class="notes">
+This operates the same way as the admin and public hooks methods, but refers to our new shared class. From there, the shared class looks just like the admin and public classes, so we don't need to review it.
+					</aside>
+				</section>
+
+			</section>
+
+			<section>
+				<h2>Review</h2>
+				<aside class="notes">
+This plugin is on github and I'm hoping to keep developing it and make it ready or the WordPress plugin directory. These are basic examples, but I think you'll get a good idea about how to work with the boilerplate.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Links</h2>
+				<p>http://wppb.io</p>
+				<p>http://wppb.me</p>
+				<p>http://dccmarketing.com</p>
+				<p>http://slushman.com</p>
+				<p>http://github.com/slushman</p>
+			</section>
+
+			<section>
+				<h2>Questions?</h2>
+			</section>
+
+		</div><!-- .slides -->
+	</div><!-- .reveal -->
+	<script src="lib/js/head.min.js"></script>
+	<script type="text/javascript" src="js/reveal.min.js"></script>
+	<script>
+		// Full list of configuration options available at:
+		// https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			keyboard: true,
+			history: true,
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// Optional reveal.js plugins
+			dependencies: [
+				{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/notes/notes.js', async: true }
+			]
+		});
+
+		hljs.configure({tabReplace: '    '});
+	</script>
+</body>
+</html>
