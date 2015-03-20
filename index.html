@@ -63,7 +63,8 @@ Published 3 plugins: ArtistDataPress, BuddyPress Profile Widgets, and BuddyBar
 				<p class="fragment">Decatur, IL</p>
 				<p class="fragment">dccmarketing.com</p>
 				<aside class="notes">
-6 months ago, my family and I moved to a farm near Decatur, IL.
+6 months ago, my family and I moved to my wife's family farm near Decatur, IL
+Lead developer
 Full-service, boutique marketing agency
 Based in Decatur, IL with an office in Chicago
 				</aside>
@@ -198,9 +199,8 @@ function deactivate_plugin_name() {
 register_activation_hook( __FILE__, 'activate_plugin_name' );
 register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );</code></pre>
 					<aside class="notes">
-At the top, is a security feature, if someone tries to open this file directly, it dies.
-Next, are two functions loading the activator and decativator classes. We'll take a look at those in a minute.
-Below that, are th register activation and deactivation hooks, referencing the appropriate methods in the respective classes.
+register_activation & register_deactivation
+Both classes are blank
 					</aside>
 				</section>
 				<section>
@@ -218,38 +218,6 @@ run_plugin_name();</code></pre>
 At the bottom of this file, We load up the primary plugin class and call the run method.
 					</aside>
 				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Activation & Deactivation</h2>
-					<h3>Activation Class</h3>
-<pre><code>class Plugin_Name_Activator {
-
-    public static function activate() {
-
-    }
-}</code></pre>
-					<aside class="notes">
-I took out the comments, but this is everything in the activation class.
-By default, its empty. For simpler plugins, you probably won't use this.
-					</aside>
-				</section>
-
-				<section>
-					<h2>Activation & Deactivation</h2>
-					<h3>Deactivation Class</h3>
-<pre><code>class Plugin_Name_Deactivator {
-
-    public static function deactivate() {
-
-    }
-}</code></pre>
-					<aside class="notes">
-The deactivator class is also blank by default.
-					</aside>
-				</section>
-
 			</section>
 
 			<section>
@@ -305,11 +273,7 @@ Load dependencies brings in all the other classes used by the plugin class. It a
     $plugin_i18n = new Plugin_Name_i18n();
     $plugin_i18n->set_domain( $this->get_plugin_name() );
 
-    $this->loader->add_action(
-        'plugins_loaded',
-        $plugin_i18n,
-        'load_plugin_textdomain'
-    );
+    $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 }</code></pre>
 					<aside class="notes">
@@ -476,12 +440,11 @@ Enqueue scripts works the same basic way, calling the WordPress function to enqu
 					<li class="fragment">README.txt</li>
 					<li class="fragment">uninstall.php</li>
 				</ul>
-				<aside class="notes">
-* You might have noticed the index.php files. Those are blank files that help prevent people from browsing your plugin directories as a security measure.
-* There's a languages folder with a blank pot file, which you would populate after your done with your plugin for i18n.
-* The license.txt file contains a copy of the GPL2 license which WordPress and the vast majority of plugins and themes use.
-* The readme file contains all the text used for the plugin directory
-* Finally, the uninstall.php file, which is blank by default, is used for anything that needs to happen when your plugin is uninstalled, like removing settings entries in the database.
+				<aside class="notes">* index.php files - security measure
+<br />* languages folder & blank pot file
+<br />* license.txt - copy of GPL2 license
+<br />* readme - text for the plugin directory
+<br />* uninstall.php - blank
 				</aside>
 			</section>
 
@@ -513,11 +476,7 @@ I wrote up an example plugin to show how this stuff works in practice. While exp
         $this->get_version()
     );
 
-    $this->loader->add_action(
-        'init',
-        $plugin_admin,
-        'new_cpt_jobs'
-    );
+    $this->loader->add_action( 'init', $plugin_admin, 'new_cpt_jobs' );
 
 }</code></pre>
 					<aside class="notes">
@@ -562,11 +521,7 @@ Then in the admin class, the new_cpt_jobs method registers the custom post type.
         $this->get_i18n(),
         $this->get_version() );
 
-    $this->loader->add_action(
-        'init',
-        $plugin_admin,
-        'new_tax_type'
-    );
+    $this->loader->add_action( 'init', $plugin_admin, 'new_tax_type' );
 
 }</code></pre>
 					<aside class="notes">
@@ -611,16 +566,8 @@ Then in the new_taxonomy_type method, we register the taxonomy. Again, I'm not s
         $this->get_version()
     );
 
-    $this->loader->add_action(
-        'admin_menu',
-        $plugin_admin,
-        'add_menu'
-    );
-    $this->loader->add_action(
-        'admin_init',
-        $plugin_admin,
-        'register_settings'
-    );
+    $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
+    $this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 
 }</code></pre>
 					<aside class="notes">
@@ -749,12 +696,19 @@ Typical options page stuff here.
 			<section>
 				<section>
 					<h2>Settings & Row Links</h2>
+					<img src="images/links.png" />
+					<aside class="notes">
+
+					</aside>
+				</section>
+				<section>
+					<h2>Settings & Row Links</h2>
 					<h3>Plugin File</h3>
 <pre><code>if ( ! defined( 'NOW_HIRING_BASENAME' ) ) {
     define( 'NOW_HIRING_BASENAME', plugin_basename( __FILE__ ) );
 }</code></pre>
 					<aside class="notes">
-
+One of the little things I like including in my plugins are settings link and row links.
 					</aside>
 				</section>
 
@@ -763,18 +717,18 @@ Typical options page stuff here.
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
 
-    $plugin_admin = new Now_Hiring_Admin(
-        $this->get_i18n(),
-        $this->get_version() );
+    $plugin_admin = new Now_Hiring_Admin( $this->get_i18n(), $this->get_version() );
 
     $this->loader->add_action(
-        'plugin_action_links_' . NOW_HIRING_BASENAME,
-        $plugin_admin,
-        'settings_link' );
+    	'plugin_action_links_' . NOW_HIRING_BASENAME,
+    	$plugin_admin,
+    	'settings_link'
+    );
     $this->loader->add_action(
-        'plugin_row_meta',
-        $plugin_admin,
-        'row_links', 10, 2 );
+    	'plugin_row_meta',
+    	$plugin_admin,
+    	'row_links', 10, 2
+    );
 
 }</code></pre>
 					<aside class="notes">
@@ -832,19 +786,11 @@ Typical options page stuff here.
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
 
-    $plugin_admin = new Now_Hiring_Admin(
-        $this->get_i18n(),
-        $this->get_version() );
+    $plugin_admin = new Now_Hiring_Admin( $this->get_i18n(), $this->get_version() );
 
-    $this->loader->add_action(
-        'add_meta_boxes',
-        $plugin_admin,
-        'add_metaboxes' );
+    $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_metaboxes' );
 
-    $this->loader->add_action(
-        'save_post_jobs',
-        $plugin_admin,
-        'save_meta', 10, 2 );
+    $this->loader->add_action( 'save_post_jobs', $plugin_admin, 'save_meta', 10, 2 );
 
 }</code></pre>
 					<aside class="notes">
@@ -984,13 +930,22 @@ Typical options page stuff here.
 
     include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-public-display.php' );
 
-} else {
-
-    echo $items;
-
 }</code></pre>
 					<aside class="notes">
 
+					</aside>
+				</section>
+
+				<section>
+					<h2>Displays, Partials, & Views, Oh My!</h2>
+					<h3>Public Class - Display Loop</h3>
+<pre><code>foreach ( $items->posts as $item ) {
+
+    include( plugin_dir_path( __FILE__ ) . 'now-hiring-public-display-single-.php' );
+
+}</code></pre>
+					<aside class="notes">
+I set these up in separate files so I can use a plugin option to switch out the display, so I keep each display's code separated.
 					</aside>
 				</section>
 
@@ -1003,7 +958,7 @@ Typical options page stuff here.
 
 }</code></pre>
 					<aside class="notes">
-I set these up in separate files so I can use a plugin option to switch out the display, so I keep each display's code separated.
+The separated files allow for the possibility of using a plugin option to determine which single display gets shown on the front-end.
 					</aside>
 				</section>
 
@@ -1022,42 +977,45 @@ This is the display I've created for the example. I could see having a plugin op
 			</section>
 
 			<section>
-				<h2>Widgets</h2>
-				<h3>Where?</h3>
-				<aside class="notes">
-I found two ways of incorporating a widget into the plugin.
+				<section>
+					<h2>Widgets</h2>
+					<h3>Where?</h3>
+					<aside class="notes">
+	I found two ways of incorporating a widget into the plugin.
 
-Both options use these two methods, just in different places.
-				</aside>
-			</section>
+	Both options use these two methods, just in different places.
+					</aside>
+				</section>
+				<section>
+					<h2>Plugin Class</h2>
+					<h3>Load Dependencies</h3>
+<pre><code>private function load_dependencies() {
 
-			<section>
-				<h2>Plugin Class</h2>
-				<h3>Load Dependencies</h3>
-<pre><code>
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-widget.php';
-</code></pre>
-				<aside class="notes">
-In the plugin class, add your widget class file in the load_dependencies method.
+    ...
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-widget.php';
 
-If you have more than one widget, load each file as a dependency here.
-				</aside>
-			</section>
+}</code></pre>
+					<aside class="notes">
+	In the plugin class, add your widget class file in the load_dependencies method.
 
-			<section>
-				<h2>Init Widgets</h2>
+	If you have more than one widget, load each file as a dependency here.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Init Widgets</h2>
 <pre><code>public function widgets_init() {
 
     register_widget( 'now_hiring_widget' );
 
 }</code></pre>
-				<aside class="notes">
-Next is the widget registration method, which I do similarly to register metaboxes where I do them all at once.
-				</aside>
-			</section>
+					<aside class="notes">
+	Next is the widget registration method, which I do similarly to register metaboxes where I do them all at once.
+					</aside>
+				</section>
 
-			<section>
-				<h2>Flush Widget Cache</h2>
+				<section>
+					<h2>Flush Widget Cache</h2>
 <pre><code>public function flush_widget_cache( $post_id ) {
 
     if ( wp_is_post_revision( $post_id ) ) { return; }
@@ -1071,16 +1029,25 @@ Next is the widget registration method, which I do similarly to register metabox
     }
 
 }</code></pre>
-				<aside class="notes">
-Lastly, based on the Tom McFarlin's widget boilerplate, I also include a flush_widget_cache, which is triggered when changes within WordPress affect the output of a widget.
-				</aside>
+					<aside class="notes">
+	Lastly, based on the Tom McFarlin's widget boilerplate, I also include a flush_widget_cache, which is triggered when changes within WordPress affect the output of a widget.
+					</aside>
+				</section>
 			</section>
 
 			<section>
 				<section>
+					<h2>Method One</h2>
+				</section>
+				<section>
 					<h2>Plugin Class</h2>
 					<h3>Constructor</h3>
-<pre><code>$this->define_widget_hooks();</code></pre>
+<pre><code>public function __construct( $plugin_name, $version ) {
+
+    ...
+    $this->define_widget_hooks();
+
+}</code></pre>
 					<aside class="notes">
 Option 1 is putting all the widget methods in the plugin class. To kick it off, add a method call in the contructor, I called mine define_widget_hooks.
 					</aside>
@@ -1106,9 +1073,17 @@ Option 1 is putting all the widget methods in the plugin class. To kick it off, 
 
 			<section>
 				<section>
+					<h2>Method Two</h2>
+				</section>
+				<section>
 					<h2>Shared Class</h2>
 					<h3>Constructor</h3>
-<pre><code>$this->define_shared_hooks();</code></pre>
+<pre><code>public function __construct( $plugin_name, $version ) {
+
+    ...
+    $this->define_shared_hooks();
+
+}</code></pre>
 					<aside class="notes">
 The second option is to create a shared class, where the widgets_init, flush_widget_cache methods are located. In the constructor, we declare a different hooks method.
 					</aside>
@@ -1117,9 +1092,12 @@ The second option is to create a shared class, where the widgets_init, flush_wid
 				<section>
 					<h2>Shared Class</h2>
 					<h3>Load Dependencies</h3>
-<pre><code>
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-shared.php';
-</code></pre>
+<pre><code>private function load_dependencies() {
+
+    ...
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-shared.php';
+
+}</code></pre>
 					<aside class="notes">
 Since we're creating a new class, we'll need to load its file as a dependency.
 					</aside>
