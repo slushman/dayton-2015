@@ -13,12 +13,17 @@ body {
 .reveal {
 
 	pre {
-		width: 100%;
-		margin: 0 auto;
-		white-space: pre-wrap;
+		width 		: 100%;
+		margin 		: 0 auto;
+		white-space : pre-wrap;
 
 		code {
 			max-height: 450px;
 		}
 	}
+}
+
+.full-code-link {
+	color 		: #fff;
+	font-size 	: 0.8em;
 }

@@ -40,13 +40,13 @@
 
 	<div class="reveal">
 		<div class="slides">
-			<section>
+			<section id="Using WordPress Plugin Boilerplate">
 				<h1>Using WordPress Plugin Boilerplate</h1>
 				<h3>Chris Wilcoxson</h3>
 				<p>WordCamp Dayton 2015</p>
 			</section>
 
-			<section>
+			<section id="about">
 				<h2>slushman</h2>
 				<aside class="notes">
 Started using WordPress in 2007 with WordPress.com.
@@ -56,7 +56,7 @@ Published 3 plugins: ArtistDataPress, BuddyPress Profile Widgets, and BuddyBar
 				</aside>
 			</section>
 
-			<section>
+			<section id="dcc">
 				<h2>DCC Marketing</h2>
 				<p class="fragment">Decatur, IL</p>
 				<p class="fragment">dccmarketing.com</p>
@@ -68,9 +68,9 @@ Based in Decatur, IL with an office in Chicago
 				</aside>
 			</section>
 
-			<section data-background="images/Halloween-2014.jpg"></section>
+			<section id="dcc-halloween" data-background="images/Halloween-2014.jpg"></section>
 
-			<section data-background="images/jump.gif">
+			<section id="jump-in" data-background="images/jump.gif">
 				<h2>Let's Jump In!</h2>
 				<p>&nbsp;</p>
 				<p>&nbsp;</p>
@@ -80,7 +80,7 @@ Based in Decatur, IL with an office in Chicago
 				<p>&nbsp;</p>
 			</section>
 
-			<section>
+			<section id="history">
 				<h2>WordPress Plugin Boilerplate</h2>
 				<h3 class="fragment">Tom McFarlin</h3>
 				<h3 class="fragment">Devin Vinson</h3>
@@ -91,7 +91,7 @@ As of March 4, 2015, taken over by Devin Vinson of Tampa Bay, FL
 				</aside>
 			</section>
 
-			<section>
+			<section id="why-use-it">
 				<h2>Why Use It?</h2>
 				<p class="fragment">Keeps files organized</p>
 				<p class="fragment">WordPress Coding Standards</p>
@@ -108,7 +108,7 @@ Starts with a blank .pot to encourage developers to add internationalization to 
 				</aside>
 			</section>
 
-			<section>
+			<section id="whats-new">
 				<h2>What's New?</h2>
 				<p class="fragment">Completely rewritten</p>
 				<p class="fragment">No more singleton</p>
@@ -122,7 +122,7 @@ And the biggest new feature is wppb.io, which serves as the homepage for the pro
 				</aside>
 			</section>
 
-			<section>
+			<section id="structure">
 				<h2>Structure</h2>
 				<img src="images/structure.png" class="structure" />
 				<aside class="notes">
@@ -132,7 +132,7 @@ Inside the trunk folder...
 				</aside>
 			</section>
 
-			<section>
+			<section id="structure-admin-public">
 				<h2>Admin & Public</h2>
 				<img src="images/admin.png" class="admin" />
 				<img src="images/public.png" class="public" />
@@ -145,7 +145,7 @@ The main file in each folder contains all the code needed for that section. We'l
 				</aside>
 			</section>
 
-			<section>
+			<section id="structure-includes">
 				<h2>Includes</h2>
 				<img src="images/includes.png" class="includes" />
 				<aside class="notes">
@@ -155,7 +155,7 @@ Before we got into all the bits and pieces, let me give you some advice:
 				</aside>
 			</section>
 
-			<section>
+			<section id="use-a-generator">
 				<h2>Use a Generator</h2>
 				<h3>http://wppb.me</h3>
 				<aside class="notes">
@@ -164,7 +164,7 @@ Seriously, save yourself a ton of time by using this generator. It takes care of
 			</section>
 
 			<section>
-				<section>
+				<section id="plugin-file-comments">
 					<h2>plugin-name.php</h2>
 <pre><code>/**
  * @link              http://example.com
@@ -183,12 +183,13 @@ Seriously, save yourself a ton of time by using this generator. It takes care of
  * Text Domain:       plugin-name
  * Domain Path:       /languages
  */</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Like any WordPress plugin, it starts with comments describing what it does, who authored it, the current version, etc.
 Boilerplate also uses the PHPDoc versions of those same properties.
 					</aside>
 				</section>
-				<section>
+				<section id="plugin-file-activate-deactivate">
 					<h2>plugin-name.php</h2>
 <pre><code>if ( ! defined( 'WPINC' ) ) { die; }
 
@@ -204,12 +205,13 @@ function deactivate_plugin_name() {
 
 register_activation_hook( __FILE__, 'activate_plugin_name' );
 register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 register_activation & register_deactivation
 Both classes are blank
 					</aside>
 				</section>
-				<section>
+				<section id="plugin-file-run">
 					<h2>plugin-name.php</h2>
 <pre><code>require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
 
@@ -220,6 +222,7 @@ function run_plugin_name() {
 
 }
 run_plugin_name();</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 At the bottom of this file, We load up the primary plugin class and call the run method.
 					</aside>
@@ -227,13 +230,13 @@ At the bottom of this file, We load up the primary plugin class and call the run
 			</section>
 
 			<section>
-				<section>
+				<section id="plugin-class">
 					<h2>Plugin Class</h2>
 					<aside class="notes">
 The plugin class is the core of the plugin. Here's where everything ties together. Let's take a look.
 					</aside>
 				</section>
-				<section>
+				<section id="plugin-class-constructor">
 					<h2>Plugin Class</h2>
 					<h3>Constructor</h3>
 <pre><code>public function __construct() {
@@ -247,13 +250,14 @@ The plugin class is the core of the plugin. Here's where everything ties togethe
     $this->define_public_hooks();
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 The constructors sets the class variables, the plugin_name is used for i18n, the version is used for cache busting scripts and stylesheets.
 Then calls these four methods:
 					</aside>
 				</section>
 
-				<section>
+				<section id="plugin-class-load-dependencies">
 					<h2>Plugin Class</h2>
 					<h3>Load Dependencies</h3>
 <pre><code>private function load_dependencies() {
@@ -266,12 +270,13 @@ Then calls these four methods:
     $this->loader = new Plugin_Name_Loader();
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Load dependencies brings in all the other classes used by the plugin class. It also instantiates the Loader class.
 					</aside>
 				</section>
 
-				<section>
+				<section id="plugin-class-i18n">
 					<h2>Plugin Class</h2>
 					<h3>i18n</h3>
 <pre><code>private function set_locale() {
@@ -282,12 +287,13 @@ Load dependencies brings in all the other classes used by the plugin class. It a
     $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 The set_locale method uses the WordPress APIs to set the textdomain for the plugin for i18n.
 					</aside>
 				</section>
 
-				<section>
+				<section id="plugin-class-hooks">
 					<h2>Plugin Class</h2>
 					<h3>Hooks</h3>
 <pre><code>private function define_admin_hooks() {
@@ -304,6 +310,7 @@ The set_locale method uses the WordPress APIs to set the textdomain for the plug
     );
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 There are two methods where the WordPress hooks and filters are setup. This is the admin hooks method, the public-facing method is exactly the same, just referencing different hooks.
 
@@ -316,7 +323,7 @@ The add_action method is really just a wrapper for a standard add_action like an
 			</section>
 
 			<section>
-				<section>
+				<section id="loader-class-constructor">
 					<h2>Loader Class</h2>
 					<h3>Constructor</h3>
 <pre><code>public function __construct() {
@@ -325,12 +332,13 @@ The add_action method is really just a wrapper for a standard add_action like an
     $this->filters = array();
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name-loader.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 The constructor sets the actions and filters class variables as blank arrays.
 					</aside>
 				</section>
 
-				<section>
+				<section id="loader-class-add-action">
 					<h2>Loader Class</h2>
 					<h3>Add Action</h3>
 <pre><code>public function add_action(
@@ -346,6 +354,7 @@ The constructor sets the actions and filters class variables as blank arrays.
     );
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name-loader.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 They work the same way: they take the arguments from your call in the plugin class and load each one into their respective arrays.
 They use a helper method call "Add", which simply adds a new subarray to either the actions array.
@@ -354,7 +363,7 @@ Those are processed in the run method.
 					</aside>
 				</section>
 
-				<section>
+				<section id="loader-class-run">
 					<h2>Loader Class</h2>
 					<h3>Run Method</h3>
 <pre><code>public function run() {
@@ -368,6 +377,7 @@ Those are processed in the run method.
         );
     }
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/includes/class-plugin-name-loader.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 These are simple foreach loops where each subarray uses the standard add_action WordPress function to setup all the various bits and piece of your plugin.
 
@@ -380,7 +390,7 @@ That's the loader class.
 			</section>
 
 			<section>
-				<section>
+				<section id="admin-public-classes-constructor">
 					<h2>Admin & Public Classes</h2>
 					<h3>Constructor</h3>
 <pre><code>public function __construct( $plugin_name, $version ) {
@@ -389,13 +399,15 @@ That's the loader class.
     $this->version = $version;
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/admin/class-plugin-name-admin.php" class="full-code-link" target="_blank">See Full Code - Admin</a>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/public/class-plugin-name-public.php" class="full-code-link" target="_blank">See Full Code - Public</a>
 					<aside class="notes">
 The admin and public classes are structured the same and have the same methods, but keep the pulic-facing code and admin-facing code separated.
 The constructor just sets the i18n and version class variables.
 					</aside>
 				</section>
 
-				<section>
+				<section id="admin-public-classes-enqueue-styles">
 					<h2>Admin & Public Classes</h2>
 					<h3>Enqueue Styles</h3>
 <pre><code>public function enqueue_styles() {
@@ -409,13 +421,15 @@ The constructor just sets the i18n and version class variables.
     );
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/admin/class-plugin-name-admin.php" class="full-code-link" target="_blank">See Full Code - Admin</a>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/public/class-plugin-name-public.php" class="full-code-link" target="_blank">See Full Code - Public</a>
 					<aside class="notes">
 Then they have added two example methods within each class.
 The first is enqueue_styles, which enqueues the sample CSS file.
 					</aside>
 				</section>
 
-				<section>
+				<section id="admin-public-classes-enqueue-scripts">
 					<h2>Admin & Public Classes</h2>
 					<h3>Enqueue Scripts</h3>
 <pre><code>public function enqueue_scripts() {
@@ -429,6 +443,8 @@ The first is enqueue_styles, which enqueues the sample CSS file.
     );
 
 }</code></pre>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/admin/class-plugin-name-admin.php" class="full-code-link" target="_blank">See Full Code - Admin</a>
+<a href="https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/blob/master/plugin-name/trunk/public/class-plugin-name-public.php" class="full-code-link" target="_blank">See Full Code - Public</a>
 					<aside class="notes">
 Enqueue scripts works the same basic way, calling the WordPress function to enqueue a script using the sample script file included with the boilerplate.
 					</aside>
@@ -436,7 +452,7 @@ Enqueue scripts works the same basic way, calling the WordPress function to enqu
 
 			</section>
 
-			<section>
+			<section id="other-files">
 				<h2>Other Files</h2>
 				<img src="images/languages.png" class="languages" />
 				<ul>
@@ -454,9 +470,9 @@ Enqueue scripts works the same basic way, calling the WordPress function to enqu
 				</aside>
 			</section>
 
-			<section data-background="images/nowwhat.gif"></section>
+			<section id="now-what" data-background="images/nowwhat.gif"></section>
 
-			<section>
+			<section id="examples-toc">
 				<h2>Examples</h2>
 				<p class="fragment">Enqueue styles and scripts</p>
 				<p class="fragment">Custom Post Type</p>
@@ -472,7 +488,7 @@ I wrote up an example plugin to show how this stuff works in practice. While exp
 			</section>
 
 			<section>
-				<section>
+				<section id="cpt-plugin-class">
 					<h2>Custom Post Type</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
@@ -485,12 +501,13 @@ I wrote up an example plugin to show how this stuff works in practice. While exp
     $this->loader->add_action( 'init', $plugin_admin, 'new_cpt_jobs' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 In the admin hooks method in the plugin class, we hook the new_cpt_jobs method onto init.
 					</aside>
 				</section>
 
-				<section>
+				<section id="cpt-admin-class">
 					<h2>Custom Post Type</h2>
 					<h3>Admin Class</h3>
 <pre><code>public function new_cpt_jobs() {
@@ -510,6 +527,7 @@ In the admin hooks method in the plugin class, we hook the new_cpt_jobs method o
     register_post_type( strtolower( $plural ), $opts );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Then in the admin class, the new_cpt_jobs method registers the custom post type. I can't fit the entire array on the slide, but you can see part of it there before the register_post_type call.
 					</aside>
@@ -518,7 +536,7 @@ Then in the admin class, the new_cpt_jobs method registers the custom post type.
 			</section>
 
 			<section>
-				<section>
+				<section id="taxonomy-plugin-class">
 					<h2>Taxonomy</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
@@ -530,12 +548,13 @@ Then in the admin class, the new_cpt_jobs method registers the custom post type.
     $this->loader->add_action( 'init', $plugin_admin, 'new_tax_type' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Taxonomies work the same basic way as a custom post type. We hook the new_taxonomy_type method from the admin class on init.
 					</aside>
 				</section>
 
-				<section>
+				<section id="taxonomy-admin-class">
 					<h2>Taxonomy</h2>
 					<h3>Admin Class</h3>
 <pre><code>public function new_taxonomy_type() {
@@ -554,6 +573,7 @@ Taxonomies work the same basic way as a custom post type. We hook the new_taxono
     register_taxonomy( $tax_name, 'jobs', $opts );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Then in the new_taxonomy_type method, we register the taxonomy. Again, I'm not showing the entire options array, just a snippet.
 					</aside>
@@ -562,7 +582,7 @@ Then in the new_taxonomy_type method, we register the taxonomy. Again, I'm not s
 			</section>
 
 			<section>
-				<section>
+				<section id="settings-plugin-class">
 					<h2>Plugin Settings</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
@@ -576,12 +596,13 @@ Then in the new_taxonomy_type method, we register the taxonomy. Again, I'm not s
     $this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 In the admin class, we hook the register_settings method to admin_init and the add_menu method to admin_menu.
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-register">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Register Settings</h3>
 <pre><code>public function register_settings() {
@@ -598,12 +619,13 @@ In the admin class, we hook the register_settings method to admin_init and the a
         'now-hiring', 'now_hiring_display_options' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 You can see, I've registered the setting "now_hiring_options", added a display options section, and added one field called display_salary.
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-page">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Options Page</h3>
 <pre><code>public function options_page() {
@@ -620,12 +642,13 @@ You can see, I've registered the setting "now_hiring_options", added a display o
     echo '</form>';
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Typical options page stuff here.
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-menu">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Add Menu</h3>
 <pre><code>public function add_menu() {
@@ -639,12 +662,13 @@ Typical options page stuff here.
     );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-section">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Display Section</h3>
 <pre><code>public function display_options_section( $params ) {
@@ -652,12 +676,13 @@ Typical options page stuff here.
     echo '<p>' . $params['title'] . '</p>';
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-field">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Display Field</h3>
 <pre><code>public function display_options_field() {
@@ -667,12 +692,13 @@ Typical options page stuff here.
     ?&gt;&lt;input type="checkbox" id="now_hiring_options[display_salary]" name="now_hiring_options[display_salary]" value="1" &lt;?php checked( 1, $options['display_salary'], false ); ?&gt; /&gt;&lt;?php
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="settings-admin-class-validate">
 					<h2>Plugin Settings</h2>
 					<h3>Admin Class - Validate Options</h3>
 <pre><code>public function validate_options( $input ) {
@@ -692,6 +718,7 @@ Typical options page stuff here.
     return $valid;
 
 } // validate_options()</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
@@ -700,25 +727,26 @@ Typical options page stuff here.
 			</section>
 
 			<section>
-				<section>
+				<section id="links-demo">
 					<h2>Settings & Row Links</h2>
 					<img src="images/links.png" />
 					<aside class="notes">
 
 					</aside>
 				</section>
-				<section>
+				<section id="links-plugin-file">
 					<h2>Settings & Row Links</h2>
 					<h3>Plugin File</h3>
 <pre><code>if ( ! defined( 'NOW_HIRING_BASENAME' ) ) {
     define( 'NOW_HIRING_BASENAME', plugin_basename( __FILE__ ) );
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 One of the little things I like including in my plugins are settings link and row links.
 					</aside>
 				</section>
 
-				<section>
+				<section id="links-plugin-class">
 					<h2>Settings & Row Links</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
@@ -737,12 +765,13 @@ One of the little things I like including in my plugins are settings link and ro
     );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="links-admin-class-settings">
 					<h2>Settings & Row Links</h2>
 					<h3>Admin Class - Settings Link</h3>
 <pre><code>public function settings_link( $links ) {
@@ -758,12 +787,13 @@ One of the little things I like including in my plugins are settings link and ro
     return $links;
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="links-admin-class-row">
 					<h2>Settings & Row Links</h2>
 					<h3>Admin Class - Row Link</h3>
 <pre><code>public function row_links( $links, $file ) {
@@ -779,6 +809,7 @@ One of the little things I like including in my plugins are settings link and ro
     return $links;
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
@@ -787,7 +818,7 @@ One of the little things I like including in my plugins are settings link and ro
 			</section>
 
 			<section>
-				<section>
+				<section id="metabox-plugin-class">
 					<h2>Metaboxes</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_admin_hooks() {
@@ -799,12 +830,13 @@ One of the little things I like including in my plugins are settings link and ro
     $this->loader->add_action( 'save_post_jobs', $plugin_admin, 'save_meta', 10, 2 );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="metabox-admin-class-add">
 					<h2>Metaboxes</h2>
 					<h3>Admin Class - Add Metaboxes</h3>
 <pre><code>public function add_metaboxes() {
@@ -819,12 +851,13 @@ One of the little things I like including in my plugins are settings link and ro
     );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="metabox-admin-class-metabox">
 					<h2>Metaboxes</h2>
 					<h3>Admin Class - Metabox Method</h3>
 <pre><code>public function callback_metabox_job_location( $object, $box ) {
@@ -832,12 +865,13 @@ One of the little things I like including in my plugins are settings link and ro
     include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-admin-display-metabox-job-location.php' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="metabox-admin-class-save">
 					<h2>Metaboxes</h2>
 					<h3>Admin Class - Save Meta</h3>
 <pre><code>public function save_meta( $post_id, $object ) {
@@ -857,6 +891,7 @@ One of the little things I like including in my plugins are settings link and ro
     }
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/admin/class-now-hiring-admin.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
@@ -865,7 +900,7 @@ One of the little things I like including in my plugins are settings link and ro
 			</section>
 
 			<section>
-				<section>
+				<section id="shortcode-plugin-class">
 					<h2>Shortcode</h2>
 					<h3>Plugin Class</h3>
 <pre><code>private function define_public_hooks() {
@@ -882,12 +917,13 @@ One of the little things I like including in my plugins are settings link and ro
     );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="shortcode-public-class-register">
 					<h2>Shortcode</h2>
 					<h3>Public Class - Register Shortcodes</h3>
 <pre><code>public function register_shortcodes() {
@@ -895,12 +931,13 @@ One of the little things I like including in my plugins are settings link and ro
     add_shortcode( 'nowhiring', array( $this, 'shortcode' ) );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/class-now-hiring-public.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="shortcode-public-class-shortcode">
 					<h2>Shortcode</h2>
 					<h3>Public Class - Shortcode Method</h3>
 <pre><code>public function shortcode( $atts ) {
@@ -921,6 +958,7 @@ One of the little things I like including in my plugins are settings link and ro
     return $output;
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/class-now-hiring-public.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
@@ -929,7 +967,7 @@ One of the little things I like including in my plugins are settings link and ro
 			</section>
 
 			<section>
-				<section>
+				<section id="displays-shortcode">
 					<h2>Displays, Partials, Views, Oh My!</h2>
 					<h3>Shortcode Method</h3>
 <pre><code>if ( is_array( $items ) || is_object( $items ) ) {
@@ -937,25 +975,27 @@ One of the little things I like including in my plugins are settings link and ro
     include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-public-display.php' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/class-now-hiring-public.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 
 					</aside>
 				</section>
 
-				<section>
+				<section id="displays-loop">
 					<h2>Displays, Partials, Views, Oh My!</h2>
 					<h3>Public Class - Display Loop</h3>
 <pre><code>foreach ( $items->posts as $item ) {
 
-    include( plugin_dir_path( __FILE__ ) . 'now-hiring-public-display-single-.php' );
+    include( plugin_dir_path( __FILE__ ) . 'now-hiring-public-display-single.php' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/partials/now-hiring-public-display.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 I set these up in separate files so I can use a plugin option to switch out the display, so I keep each display's code separated.
 					</aside>
 				</section>
 
-				<section>
+				<section id="displays-loop-with-option">
 					<h2>Displays, Partials, Views, Oh My!</h2>
 					<h3>Public Class - Display Loop</h3>
 <pre><code>foreach ( $items->posts as $item ) {
@@ -963,18 +1003,20 @@ I set these up in separate files so I can use a plugin option to switch out the 
     include( plugin_dir_path( __FILE__ ) . 'now-hiring-public-display-single-' .    esc_attr( $options['layout'] ) . '.php' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/partials/now-hiring-public-display.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 The separated files allow for the possibility of using a plugin option to determine which single display gets shown on the front-end.
 					</aside>
 				</section>
 
-				<section>
+				<section id="displays-single">
 					<h2>Displays, Partials, Views, Oh My!</h2>
 					<h3>Public Class - Display Single</h3>
 <pre><code>?&gt;&lt;div class="job-wrap"&gt;
     &lt;h1 class="job-title"&gt;&lt;a href="&lt;?php echo get_permalink( $item->ID ); ?>"&gt;&lt;?php echo esc_attr( $item->post_title ); ?&gt;&lt;/a&gt;&lt;/h1&gt;
     &lt;div class="job-content"&gt;&lt;?php echo $item->post_content; ?&gt;&lt;/h1&gt;
 &lt;/div&gt;</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/public/partials/now-hiring-public-display-single.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 This is the display I've created for the example. I could see having a plugin option for choosing a different single job posting display. In that case, I'd put the option logic in the loop display file, which would then load one of the single displays based on the plugin option.
 					</aside>
@@ -983,7 +1025,7 @@ This is the display I've created for the example. I could see having a plugin op
 			</section>
 
 			<section>
-				<section>
+				<section id="widgets">
 					<h2>Widgets</h2>
 					<h3>Where?</h3>
 					<aside class="notes">
@@ -992,7 +1034,7 @@ This is the display I've created for the example. I could see having a plugin op
 	Both options use these two methods, just in different places.
 					</aside>
 				</section>
-				<section>
+				<section id="widgets-dependencies">
 					<h2>Plugin Class</h2>
 					<h3>Load Dependencies</h3>
 <pre><code>private function load_dependencies() {
@@ -1001,6 +1043,7 @@ This is the display I've created for the example. I could see having a plugin op
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-widget.php';
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 	In the plugin class, add your widget class file in the load_dependencies method.
 
@@ -1008,19 +1051,20 @@ This is the display I've created for the example. I could see having a plugin op
 					</aside>
 				</section>
 
-				<section>
+				<section id="widgets-init">
 					<h2>Init Widgets</h2>
 <pre><code>public function widgets_init() {
 
     register_widget( 'now_hiring_widget' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 	Next is the widget registration method, which I do similarly to register metaboxes where I do them all at once.
 					</aside>
 				</section>
 
-				<section>
+				<section id="widgets-flush-cache">
 					<h2>Flush Widget Cache</h2>
 <pre><code>public function flush_widget_cache( $post_id ) {
 
@@ -1035,6 +1079,7 @@ This is the display I've created for the example. I could see having a plugin op
     }
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 	Lastly, based on the Tom McFarlin's widget boilerplate, I also include a flush_widget_cache, which is triggered when changes within WordPress affect the output of a widget.
 					</aside>
@@ -1042,10 +1087,10 @@ This is the display I've created for the example. I could see having a plugin op
 			</section>
 
 			<section>
-				<section>
+				<section id="widgets-1">
 					<h2>Method One</h2>
 				</section>
-				<section>
+				<section id="widgets-1-constructor">
 					<h2>Plugin Class</h2>
 					<h3>Constructor</h3>
 <pre><code>public function __construct( $plugin_name, $version ) {
@@ -1054,12 +1099,13 @@ This is the display I've created for the example. I could see having a plugin op
     $this->define_widget_hooks();
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Option 1 is putting all the widget methods in the plugin class. To kick it off, add a method call in the contructor, I called mine define_widget_hooks.
 					</aside>
 				</section>
 
-				<section>
+				<section id="widgets-1-hooks">
 					<h2>Plugin Class</h2>
 					<h3>Define Widget Hooks</h3>
 <pre><code>private function define_widget_hooks() {
@@ -1070,6 +1116,7 @@ Option 1 is putting all the widget methods in the plugin class. To kick it off, 
     $this->loader->add_action( 'switch_theme', $this, 'flush_widget_cache' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Option 1 is putting all the widget methods in the plugin class. To kick it off, add a method call in the contructor, I called mine define_widget_hooks. You can see, we hook the widgets_init method so the widgets will be recognized by WordPress and we flush the widget cache when posts are saved, which would end up changing the output of our widget.
 					</aside>
@@ -1078,10 +1125,10 @@ Option 1 is putting all the widget methods in the plugin class. To kick it off, 
 			</section>
 
 			<section>
-				<section>
+				<section id="widgets-2">
 					<h2>Method Two</h2>
 				</section>
-				<section>
+				<section id="widgets-2-constructor">
 					<h2>Shared Class</h2>
 					<h3>Constructor</h3>
 <pre><code>public function __construct( $plugin_name, $version ) {
@@ -1090,12 +1137,13 @@ Option 1 is putting all the widget methods in the plugin class. To kick it off, 
     $this->define_shared_hooks();
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring-shared.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 The second option is to create a shared class, where the widgets_init, flush_widget_cache methods are located. In the constructor, we declare a different hooks method.
 					</aside>
 				</section>
 
-				<section>
+				<section id="widgets-2-dependencies">
 					<h2>Shared Class</h2>
 					<h3>Load Dependencies</h3>
 <pre><code>private function load_dependencies() {
@@ -1104,12 +1152,13 @@ The second option is to create a shared class, where the widgets_init, flush_wid
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-now-hiring-shared.php';
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring-shared.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 Since we're creating a new class, we'll need to load its file as a dependency.
 					</aside>
 				</section>
 
-				<section>
+				<section id="widgets-2-hooks">
 					<h2>Shared Class</h2>
 					<h3>Define Widget Hooks</h3>
 <pre><code>private function define_shared_hooks() {
@@ -1122,6 +1171,7 @@ Since we're creating a new class, we'll need to load its file as a dependency.
     $this->loader->add_action( 'switch_theme', $plugin_shared, 'flush_widget_cache' );
 
 }</code></pre>
+<a href="https://github.com/slushman/now-hiring/blob/master/includes/class-now-hiring.php" class="full-code-link" target="_blank">See Full Code</a>
 					<aside class="notes">
 This operates the same way as the admin and public hooks methods, but refers to our new shared class. From there, the shared class looks just like the admin and public classes, so we don't need to review it.
 					</aside>
@@ -1129,23 +1179,23 @@ This operates the same way as the admin and public hooks methods, but refers to 
 
 			</section>
 
-			<section>
+			<section id="review">
 				<h2>Review</h2>
 				<aside class="notes">
 This plugin is on github and I'm hoping to keep developing it and make it ready or the WordPress plugin directory. These are basic examples, but I think you'll get a good idea about how to work with the boilerplate.
 				</aside>
 			</section>
 
-			<section>
+			<section id="links">
 				<h2>Links</h2>
-				<p>http://wppb.io</p>
-				<p>http://wppb.me</p>
-				<p>http://dccmarketing.com</p>
-				<p>http://slushman.com</p>
-				<p>http://github.com/slushman</p>
+				<p><a href="http://wppb.io">http://wppb.io</a></p>
+				<p><a href="http://wppb.me">http://wppb.me</a></p>
+				<p><a href="http://dccmarketing.com">http://dccmarketing.com</a></p>
+				<p><a href="http://slushman.com">http://slushman.com</a></p>
+				<p><a href="http://github.com/slushman">http://github.com/slushman</a></p>
 			</section>
 
-			<section>
+			<section id="questions">
 				<h2>Questions?</h2>
 			</section>
 
